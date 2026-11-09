@@ -52,8 +52,9 @@ pip install pandas scikit-learn numpy
 python reproduce.py
 ```
 
-`reproduce.py` downloads the dataset from Kaggle's public endpoint (no account needed),
-trains the final model, and prints the metrics above. GitHub Actions runs it on every push.
+`reproduce.py` uses the `vgsales.csv` in this repo (it downloads the dataset from Kaggle's
+public endpoint, no account needed, if the file is missing), trains the final model, and
+prints the metrics above. GitHub Actions runs it on every push.
 
 ## Tech
 Python · pandas · NumPy · Matplotlib · scikit-learn · Jupyter

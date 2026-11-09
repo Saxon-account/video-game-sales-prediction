@@ -36,7 +36,15 @@ def get_csv() -> Path:
     if local.exists():
         return local
     tmp = Path(tempfile.mkdtemp()) / "vgs.zip"
-    subprocess.run(["curl", "-sL", DATASET_URL, "-o", str(tmp)], check=True)
+    subprocess.run(
+        ["curl", "-sL", "-A", "Mozilla/5.0", DATASET_URL, "-o", str(tmp)],
+        check=True,
+    )
+    if not zipfile.is_zipfile(tmp):
+        raise RuntimeError(
+            "Dataset download did not return a zip file "
+            f"(got {tmp.stat().st_size} bytes from Kaggle's endpoint)."
+        )
     with zipfile.ZipFile(tmp) as z:
         z.extract("vgsales.csv", local.parent)
     return local
